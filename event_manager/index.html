@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>js_external_test</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 线上：https://analytics.oceanengine.com/api/v2/js/sdk -->
+    <script>
+      (function (r, d, s) {
+        r._tt_config = true;
+        var _baq = (r._baq = r._baq || []);
+        _baq.methods = ["track", "off", "on"];
+        _baq.factory = function (method) {
+          return function () {
+            var args = Array.prototype.slice.call(arguments);
+            args.unshift(method);
+            _baq.push(args);
+            return _baq;
+          };
+        };
+        for (var i = 0; i < _baq.methods.length; i++) {
+          var key = _baq.methods[i];
+          _baq[key] = _baq.factory(key);
+        }
+        _baq.load = function () {
+          var js,
+            fjs = d.getElementsByTagName(s)[0];
+          js = d.createElement(s);
+          js.src = "https://analytics.oceanengine.com/api/v2/js/sdk";
+          fjs.parentNode.insertBefore(js, fjs);
+        };
+        _baq.load();
+        if (_baq.invoked) {
+          return;
+        }
+        _baq.invoked = true;
+        _baq.track("pageview");
+      })(window, document, "script");
+    </script>
+    <!-- End Bytedance Tracking 事件管理版-->
+  </head>
+  <style type="text/css">
+    button {
+      width: 90%;
+      max-width: 400px;
+      height: 48px;
+      background: #eee;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    h3 {
+      width: 100%;
+      text-align: center;
+    }
+    ul {
+      width: auto;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+    #describeBox {
+      width: 100%;
+      margin: 0 auto;
+    }
+    #describe {
+      width: auto;
+      background-color: #eee;
+      border-left: 6px solid #0072b3;
+      padding: 12px;
+      font-size: 12px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  </style>
+  <body>
+    <div>
+      <h3>事件管理非白名单测试页面-JS回传方式</h3>
+      <div id="describeBox">
+        <div id="describe">
+          <p>1. 页面刚打开会上报pageview事件</p>
+        </div>
+      </div>
+      <ul>
+        <li>
+          <button id="btn_js">js方式点击我上报转化(event_type=button)</button>
+        </li>
+        <li>
+          <button
+            id="btn_2nd_jump"
+            onclick="location.href='js_third_next.html'"
+          >
+            跳转下一页检查二级页面js上报是否正常
+          </button>
+        </li>
+        <li>
+          <button
+            id="btn_2nd_jump"
+            onclick="location.href='client_auto_xpath.html'"
+          >
+            跳转下一页检查xpath&二级页面上报是否正常
+          </button>
+        </li>
+        <li><button onclick="location.reload()">刷新页面</button></li>
+      </ul>
+    </div>
+    <script type="text/javascript">
+      window.onload = function () {
+        var btn = document.getElementById("btn_js");
+        btn.onclick = function () {
+          _baq.track("button", {
+            event_weight: 100000,
+            product_name: "鞋子2",
+            price: "100fjsdkjflksdfj",
+            color: "black",
+            assets_id: "9876543",
+            ad_extra_data: { render_type: "lynx" },
+          });
+        };
+      };
+    </script>
+  </body>
+</html>
